@@ -21,6 +21,8 @@
 #include "src/fastertransformer/utils/cuda_type_utils.cuh"
 #include <stdint.h>
 
+//#define _DEBUG_ROTARY_EMBEDDDING
+
 using namespace fastertransformer;
 
 namespace mmha {
@@ -1373,6 +1375,10 @@ inline __device__ void apply_rotary_embedding(float2& q, int tid, int rot_embed_
 
 inline __device__ void apply_rotary_embedding(float2& q, float2& k, int tid, int rot_embed_dim, int t_step)
 {
+#ifdef _DEBUG_ROTARY_EMBEDDDING
+    printf("apply_rotary_embedding(float2& q, float2& k, int tid, int rot_embed_dim, int t_step) enter.\n")
+#endif
+
     if (2 * tid >= rot_embed_dim) {
         return;
     }
@@ -1396,6 +1402,10 @@ inline __device__ void apply_rotary_embedding(float4& q, int tid, int rot_embed_
 
 inline __device__ void apply_rotary_embedding(float4& q, float4& k, int tid, int rot_embed_dim, int t_step)
 {
+#ifdef _DEBUG_ROTARY_EMBEDDDING
+    printf("apply_rotary_embedding(float4& q, float4& k, int tid, int rot_embed_dim, int t_step) enter.\n")
+#endif
+
     if (4 * tid >= rot_embed_dim) {
         return;
     }
